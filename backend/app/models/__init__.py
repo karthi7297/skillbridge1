@@ -1,0 +1,20 @@
+from backend.app.models.models import (
+    User,
+    LearnerProfile,
+    Skill,
+    LearnerSkill,
+    Certification,
+    Project,
+    CareerRole,
+    RoleSkill,
+    SkillDependency,
+    LearningResource,
+    Roadmap,
+    RoadmapTask,
+    Assessment,
+    AssessmentQuestion,
+    AssessmentAttempt,
+    SkillMasteryHistory,
+    AgentLog,
+)
+
