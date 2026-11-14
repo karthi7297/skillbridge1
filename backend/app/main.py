@@ -1,4 +1,25 @@
+import sys
 import os
+import types
+
+# Ensure backend package is resolvable whether running from repo root or backend/ directory (e.g. Render/Cloud deploys)
+_current_file = os.path.abspath(__file__)
+_app_dir = os.path.dirname(_current_file)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+
+for _p in [_root_dir, _backend_dir]:
+    if _p and os.path.isdir(_p) and _p not in sys.path:
+        sys.path.insert(0, _p)
+
+if "backend" not in sys.modules:
+    try:
+        import backend
+    except ModuleNotFoundError:
+        _backend_pkg = types.ModuleType("backend")
+        _backend_pkg.__path__ = [_backend_dir]
+        sys.modules["backend"] = _backend_pkg
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
